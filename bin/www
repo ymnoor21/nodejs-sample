@@ -3,8 +3,8 @@
 /**
  * Module dependencies.
  */
-
-var app = require('../app');
+var flights = require('../data');
+var app = require('../app')(flights);
 var debug = require('debug')('airline:server');
 var http = require('http');
 
