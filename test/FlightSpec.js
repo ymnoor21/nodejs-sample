@@ -10,7 +10,7 @@ describe('flights', function() {
 		.get('/flights/237')
 		.expect(200)
 		.end(function (err, res) {
-			res.status.should.be.exactly(200).and.be.a.Number();
+			should(res.status).be.exactly(200).and.be.a.Number();
 			done();
 		});
 	});
