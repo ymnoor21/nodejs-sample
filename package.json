@@ -15,8 +15,8 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
-    "mocha": "*",
-    "should": "*",
-    "supertest": "*"
+    "mocha": "^2.3.4",
+    "should": "^7.1.1",
+    "supertest": "^1.1.0"
   }
 }
