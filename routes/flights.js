@@ -28,7 +28,7 @@ module.exports = function(flights) {
    });
 
    router.get('/:number', function(req, res, next) {
-      var number = req.param('number');
+      var number = req.params['number'];
       
       if (typeof flights[number] === 'undefined') {
          res.status(404).json({'status': 'error'});
@@ -38,7 +38,7 @@ module.exports = function(flights) {
    });
 
    router.put('/:number/arrived', function(req, res, next) {
-      var number = req.param('number');
+      var number = req.params['number'];
       
       if (typeof flights[number] === 'undefined') {
          res.status(404).json({'status': 'error'});
