@@ -23,7 +23,8 @@ module.exports = function(flights) {
          } else {
             res.render('arrivals', {
                title: 'Arrivals',
-               arrivals: arrivals
+               arrivals: arrivals,
+               lastNumber: req.session.lastNumber
             });
          }
       });
@@ -45,6 +46,8 @@ module.exports = function(flights) {
 
    router.get('/:number', function(req, res, next) {
       var number = req.params['number'];
+
+      req.session.lastNumber = number;
       
       if (typeof flights[number] === 'undefined') {
          res.status(404).json({'status': 'error'});
