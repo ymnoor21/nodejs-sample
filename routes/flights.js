@@ -3,6 +3,7 @@ module.exports = function(flights) {
    var router = express.Router();
 
    var flight = require('../flight');
+   var FlightModel = require('../schemas/flight');
 
    for (var number in flights) {
       flights[number] = flight.create(flights[number])
@@ -44,7 +45,16 @@ module.exports = function(flights) {
          res.status(404).json({'status': 'error'});
       } else {
          flights[number].triggerArrive();
-         res.json({'status': 'done', 'info': flights[number].getInformation()});
+
+         var record = new FlightModel(flights[number].getInformation());
+
+         record.save(function (err) {
+            if (err) {
+               res.status(500).json({'status': 'failure'});
+            } else {
+               res.status(200).json({'status': 'success', 'info': flights[number].getInformation()});
+            }
+         });
       }
    });
 
