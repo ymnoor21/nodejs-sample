@@ -14,6 +14,21 @@ module.exports = function(flights) {
       res.render('Flight Index', { title: 'Express' });
    });
 
+   router.get('/arrival', function(req, res, next) {
+      FlightModel.find()
+      .sort({'actualArrive': 1})
+      .exec(function (err, arrivals) {
+         if (err) {
+            res.status(500).json({'status': 'failure'});
+         } else {
+            res.render('arrivals', {
+               title: 'Arrivals',
+               arrivals: arrivals
+            });
+         }
+      });
+   });
+
    router.get('/list', function(req, res, next) {
       res.render('list', { title: 'Flights List', flights: flights});
    });
