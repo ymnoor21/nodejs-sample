@@ -2,14 +2,16 @@ module.exports = function(flights, db) {
    var express = require('express');
    var session = require('express-session');
 	var MongoStore = require('connect-mongo')(session);
+	var passport = require('./auth');
    var path = require('path');
    var favicon = require('serve-favicon');
    var logger = require('morgan');
    var cookieParser = require('cookie-parser');
    var bodyParser = require('body-parser');
 
-   var routes = require('./routes/index');
-   var flights = require('./routes/flights')(flights);
+   var defaultRoutes = require('./routes/index')(passport);
+   var flightRoutes = require('./routes/flights')(flights);
+   var userRoutes = require('./routes/user')(passport);
 
    var app = express();
 
@@ -31,6 +33,9 @@ module.exports = function(flights, db) {
    	})
 	}));
 
+   app.use(passport.initialize());
+   app.use(passport.session());
+
    app.use(bodyParser.json());
    app.use(bodyParser.urlencoded({ extended: false }));
    app.use(express.static(path.join(__dirname, 'public')));
@@ -40,8 +45,9 @@ module.exports = function(flights, db) {
       next();
    });
 
-   app.use('/', routes);
-   app.use('/flights', flights);
+   app.use('/', defaultRoutes);
+   app.use('/flights', flightRoutes);
+   app.use('/user', userRoutes);
 
    // catch 404 and forward to error handler
    app.use(function(req, res, next) {
