@@ -1,56 +1,56 @@
 var count = 0,
-	destinations = [];
+   destinations = [];
 
 var Flight = function () {
-	this.data = {
-		number: null,
-		origin: null,
-		destination: null,
-		departs: null,
-		arrives: null,
-		actualDepart: null,
-		actualArrive: null
-	};
+   this.data = {
+      number: null,
+      origin: null,
+      destination: null,
+      departs: null,
+      arrives: null,
+      actualDepart: null,
+      actualArrive: null
+   };
 
-	this.fill = function (info) {
-		for (var prop in this.data) {
-			if (this.data[prop] != 'undefined') {
-				this.data[prop] = info[prop];
-			}
-		}
-	};
+   this.fill = function (info) {
+      for (var prop in this.data) {
+         if (this.data[prop] != 'undefined') {
+            this.data[prop] = info[prop];
+         }
+      }
+   };
 
-	this.triggerDepart = function() {
-		this.data.actualDepart = Date.now()
-	};
-	
-	this.triggerArrive = function() {
-		this.data.actualArrive = Date.now()
-	};
-	
-	this.getInformation = function() {
-		return this.data;
-	}
+   this.triggerDepart = function() {
+      this.data.actualDepart = Date.now()
+   };
+   
+   this.triggerArrive = function() {
+      this.data.actualArrive = Date.now()
+   };
+   
+   this.getInformation = function() {
+      return this.data;
+   }
 };
 
 exports.create = function (info) {
-	var instance = new Flight();
+   var instance = new Flight();
 
-	instance.fill(info);
+   instance.fill(info);
 
-	count++;
+   count++;
 
-	if (destinations.indexOf(info['destination'] < 0)) {
-		destinations.push(info['destination']);
-	}
+   if (destinations.indexOf(info['destination'] < 0)) {
+      destinations.push(info['destination']);
+   }
 
-	return instance;
+   return instance;
 };
 
 exports.getCount = function () {
-	return count;
+   return count;
 }
 
 exports.getDestinations = function() {
-	return destinations;
+   return destinations;
 }

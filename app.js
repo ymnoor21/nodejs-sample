@@ -1,8 +1,8 @@
 module.exports = function(flights, db) {
    var express = require('express');
    var session = require('express-session');
-	var MongoStore = require('connect-mongo')(session);
-	var passport = require('./auth');
+   var MongoStore = require('connect-mongo')(session);
+   var passport = require('./auth');
    var path = require('path');
    var favicon = require('serve-favicon');
    var logger = require('morgan');
@@ -25,13 +25,13 @@ module.exports = function(flights, db) {
    app.use(cookieParser());
 
    app.use(session({
-   	secret: 'super secret session',
-   	resave: true,
-    	saveUninitialized: true,
-   	store: new MongoStore({
-   		mongooseConnection: db
-   	})
-	}));
+      secret: 'super secret session',
+      resave: true,
+      saveUninitialized: true,
+      store: new MongoStore({
+         mongooseConnection: db
+      })
+   }));
 
    app.use(passport.initialize());
    app.use(passport.session());
